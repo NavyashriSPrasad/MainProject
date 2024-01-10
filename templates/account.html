@@ -62,10 +62,11 @@
   </style>
 </head>
 <body>
-    {% csrf_token %}
+    
   <div class="container">
     <h1>Create Your RehabRise Account</h1>
-    <form action="/submit_account_details" method="post">
+    <form action="account_output" method="post">
+      {% csrf_token %}
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required>
 
@@ -73,8 +74,8 @@
       <input type="number" id="age" name="age" required>
 
       <label for="gender">Gender:</label>
-      <input type="radio" id="gender" name="gender" value="M">
-      <input type="radio" id="gender" name="gender" value="F">
+      Male<input type="radio" id="gender" name="gender" value="M">
+      Female<input type="radio" id="gender" name="gender" value="F">
 
       <label for="dob">Date of Birth:</label>
       <input type="date" id="dob" name="dob" required>
@@ -117,8 +118,8 @@
        
       <label>What are you mainly concerned about?</label>
     
-        Alcohol<input type="radio" name="choice" value="a"><br><br>
-        Drug<input type="radio" name="choice" value="d">
+        Alcohol<input type="radio" name="choice" value="alcohol"><br><br>
+        Drug<input type="radio" name="choice" value="drug">
 
       <input type="submit" value="Create Account">
     </form>

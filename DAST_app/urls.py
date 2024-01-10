@@ -9,6 +9,7 @@ urlpatterns = [
     path('predict/',views.predictor,name='predictor'),
     #path('user/',views.user,name='user'),
     path('alcohol/', views.audit, name='audit'),  # Define your alcohol-related view and URL
-    path('account/', views.account, name='account')
+    path('account_output',views.account_output,name='account')
+    #path('account', views.account_output, name='account')
     
 ]

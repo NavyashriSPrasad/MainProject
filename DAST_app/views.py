@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from sklearn.preprocessing import LabelEncoder
+from .models import userinfo
 
 
 model=load('./savedModels/best_svm.joblib')
@@ -110,8 +111,22 @@ def audit(request):
         return render(request,'auditTest.html',{'result':ypred})
     return render(request,'auditTest.html')
 
-def account(request):
-     return render(request,"account.html",{})
+# def account(request):
+#     return render(request,'account.html')
+def account_output(request):
+    en=userinfo(uname=request.POST.get('name'),age=request.POST.get('age'),gender=request.POST.get('gender'),dob=request.POST.get('dob'),
+                address=request.POST.get('address'),city=request.POST.get('city'),state=request.POST.get('state'),phone=request.POST.get('phone'),
+                employment=request.POST.get('employment'),education=request.POST.get('education'),concern=request.POST.get('choice'))
+    en.save()
+    #str1="Data inserted to userinfo table" 
+    choice = request.POST.get('choice')
+    if choice == 'alcohol':  # Redirect to alcohol page
+        return redirect('audit')   
+    elif choice == 'drug':  # drug page
+        return redirect('predictor') 
+    
+    str1="Data inserted to student table" 
+    return render(request,'account.html',{'msg':str1})
     
 
     
