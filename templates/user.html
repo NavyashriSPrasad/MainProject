@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RehabRise</title>
+    <style>
+        body {
+            background-color: black; /* Set the background color to black */
+            color: white; /* Set text color to white for better visibility */
+            font-family: Arial, sans-serif; /* Choose a font family */
+            padding: 20px; /* Add some padding for better readability */
+        }
+        h2 {
+            text-align: center; /* Center-align the heading */
+        }
+        form {
+            text-align: center; /* Center-align the form */
+        }
+        input[type="radio"] {
+            margin: 0 10px; /* Add spacing between radio buttons */
+        }
+        input[type="submit"] {
+            padding: 10px 20px; /* Add padding to submit button */
+            background-color: #333; /* Choose a darker background color for the button */
+            color: white; /* Set text color to white */
+            border: none; /* Remove button border */
+            cursor: pointer; /* Show pointer cursor on hover */
+        }
+    </style>
+</head>
+<body>
+    <h2>What are you mainly concerned about?</h2> 
+    <form method="post" >
+        {% csrf_token %}
+        Alcohol<input type="radio" name="choice" value="a"><br><br>
+        Drug<input type="radio" name="choice" value="d"><br><br>
+        <input type="submit">
+    </form>
+</body>
+</html>

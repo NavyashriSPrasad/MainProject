@@ -1,0 +1,16 @@
+<!-- e_library/templates/e_library/e_library_page.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Library</title>
+</head>
+<body>
+    <h1>Welcome to the E-Library</h1>
+    <ul>
+        {% for book in books %}
+            <li><a href="{% url 'read_book' book.id %}">{{ book.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

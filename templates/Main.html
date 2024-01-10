@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAST</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 20px;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto 0;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        h4 {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 600px) {
+            form {
+                padding: 10px;
+            }
+            input[type="submit"] {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Drug Abuse Screening Test</h2>
+    <h4><i>Answer the below questions honestly</i></h4>
+    <hr>
+    {% if result %}
+        <h1>DAST Result: {{ result }}</h1>
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <ol>
+            <li>Have you used drugs other than those required for medical reasons?</li>
+            <input type="radio" name="q1" value="1"> Yes <input type="radio" name="q1" value="0"> No <br><br>
+            <li>Do you use more than one drug at a time?  </li> 
+            <input type="radio" name="q2" value="1">Yes <input type="radio" name="q2" value="0"> No<br><br>
+            <li> Are you always able to stop using drugs when you want to?  </li> 
+            <input type="radio" name="q3" value="1">Yes <input type="radio" name="q3" value="0"> No<br><br>
+            <li>Have you had "blackouts" or "flashbacks" as a result of drug use?  </li> 
+            <input type="radio" name="q4" value="1">Yes <input type="radio" name="q4" value="0"> No <br><br>
+            <li>Do you ever feel bad or guilty about your drug use? </li> 
+            <input type="radio" name="q5" value="1">Yes <input type="radio" name="q5" value="0"> No <br><br>
+            <li>Does your spouse (or parents) ever complain about your involvement with drugs? </li> 
+            <input type="radio" name="q6" value="1">Yes <input type="radio" name="q6" value="0"> No <br><br>
+            <li>Have you neglected your family because of your use of drugs?   </li> 
+            <input type="radio" name="q7" value="1">Yes <input type="radio" name="q7" value="0"> No <br><br>
+            <li>Have you engaged in illegal activities in order to obtain drugs?   </li> 
+            <input type="radio" name="q8" value="1">Yes <input type="radio" name="q8" value="0"> No <br><br>
+            <li>Have you ever experienced withdrawal symptoms (felt sick) when you stopped taking drugs?   </li> 
+            <input type="radio" name="q9" value="1">Yes <input type="radio" name="q9" value="0"> No <br><br>
+            <li>Have you had medical problems as a result of your drug use (e.g., memory loss, hepatitis, convulsions, bleeding, etc.)?   </li>
+            <input type="radio" name="q10" value="1">Yes <input type="radio" name="q10" value="0"> No <br><br> 
+            <input type="submit" value="Submit">
+        </ol>
+    </form>
+</body>
+</html>
