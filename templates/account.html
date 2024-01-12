@@ -65,10 +65,24 @@
     
   <div class="container">
     <h1>Create Your RehabRise Account</h1>
-    <form action="account_output" method="post">
+    <form action="{% url 'account' %}" method="post">
       {% csrf_token %}
+      <label for="fname">First Name:</label>
+      <input type="text" id="fname" name="fname" required>
+
+      <label for="lname">Last Name:</label>
+      <input type="text" id="lname" name="lname" >
+
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required>
+
+      <label for="password1">Password</label>
+      <input type="password" placeholder="Password" id="password1" name="password1" required>
+
+
+      <label for="password2">Confrom Password</label>
+      <input type="password" placeholder="Confrom Password" id="password2" name="password2" required>
+
 
       <label for="age">Age:</label>
       <input type="number" id="age" name="age" required>

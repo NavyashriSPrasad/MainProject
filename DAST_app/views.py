@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from sklearn.preprocessing import LabelEncoder
-from .models import userinfo
+from .models import details
 
 
 model=load('./savedModels/best_svm.joblib')
-model1=load('./savedModels/rf_model.joblib')
+model1=load('./savedModels/adaboost_classifier.joblib')
 
 def HomePage(request):
     return render(request,'home.html')
@@ -29,8 +29,6 @@ def SignupPage(request):
             my_user=User.objects.create_user(uname,email,pass1)
             my_user.save()
             return redirect('login')
-        
-
     return render (request,'signup.html')
 
 def LoginPage(request):
@@ -45,6 +43,31 @@ def LoginPage(request):
             return HttpResponse ("Username or Password is incorrect!!!")
 
     return render (request,'login.html')
+
+# def LoginPage(request):
+#     if request.method == 'POST':
+#         form = LoginPage(request.POST)
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['pass']
+
+#             try:
+#                 user = userinfo.objects.get(username=username)
+#                 if check_password(password, user.password):
+#                     messages.success(request, 'Login successful!')
+#                     # Redirect to a success page or dashboard
+#                     return redirect('success_page')
+#                 else:
+#                     messages.error(request, 'Invalid username or password.')
+#             except User.DoesNotExist:
+#                 messages.error(request, 'Invalid username or password.')
+#     else:
+#         form = LoginPage()
+
+#     return render(request, 'login.html', {'form': form})         
+
+def success_page(request):
+    return render(request,'success_page.html')
 
 def LogoutPage(request):
     LOGOUT(request)
@@ -61,7 +84,7 @@ def user(request):
 
     return render(request, 'user.html')
 
-@login_required(login_url='login')
+#@login_required(login_url='login')
 def predictor(request):
     if request.method=='POST':
         a1=request.POST['q1']
@@ -87,7 +110,7 @@ def predictor(request):
         return render(request,'main.html',{'result':ypred})
     return render(request,'main.html')
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def audit(request):
     if request.method=='POST':
         a1=request.POST['q1']
@@ -111,22 +134,28 @@ def audit(request):
         return render(request,'auditTest.html',{'result':ypred})
     return render(request,'auditTest.html')
 
-# def account(request):
-#     return render(request,'account.html')
+
 def account_output(request):
-    en=userinfo(uname=request.POST.get('name'),age=request.POST.get('age'),gender=request.POST.get('gender'),dob=request.POST.get('dob'),
-                address=request.POST.get('address'),city=request.POST.get('city'),state=request.POST.get('state'),phone=request.POST.get('phone'),
-                employment=request.POST.get('employment'),education=request.POST.get('education'),concern=request.POST.get('choice'))
-    en.save()
-    #str1="Data inserted to userinfo table" 
+    if request.method=='POST':
+        print('working')
+        pass1=request.POST.get('password1')
+        pass2=request.POST.get('password2')
+        if pass1!=pass2:
+                return HttpResponse("Your password and confrom password are not Same!!")
+        else:
+            en=details(fname=request.POST.get('fname'),lname=request.POST.get('lname'),username=request.POST.get('name'),
+                age=request.POST.get('age'),gender=request.POST.get('gender'),dob=request.POST.get('dob'),
+                    address=request.POST.get('address'),city=request.POST.get('city'),state=request.POST.get('state'),phone=request.POST.get('phone'),
+                    employment=request.POST.get('employment'),education=request.POST.get('education'),concern=request.POST.get('choice'),password=request.POST.get('password1'))
+            en.save()
+ 
     choice = request.POST.get('choice')
     if choice == 'alcohol':  # Redirect to alcohol page
-        return redirect('audit')   
+        return redirect('/audit')   
     elif choice == 'drug':  # drug page
         return redirect('predictor') 
     
-    str1="Data inserted to student table" 
-    return render(request,'account.html',{'msg':str1})
+    return render(request,'account.html')
     
 
     
