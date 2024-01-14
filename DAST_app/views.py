@@ -7,13 +7,17 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 from sklearn.preprocessing import LabelEncoder
 from .models import details
-
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import check_password
 
 model=load('./savedModels/best_svm.joblib')
 model1=load('./savedModels/adaboost_classifier.joblib')
 
-def HomePage(request):
-    return render(request,'home.html')
+# def HomePage(request):
+#     return render(request,'home.html')
+
+def startPage(request):
+    return render(request,'startPage.html')
 
 def SignupPage(request):
     if request.method=='POST':
@@ -31,40 +35,42 @@ def SignupPage(request):
             return redirect('login')
     return render (request,'signup.html')
 
-def LoginPage(request):
-    if request.method=='POST':
-        username=request.POST.get('username')
-        pass1=request.POST.get('pass')
-        user=authenticate(request,username=username,password=pass1)
-        if user is not None:
-            login(request,user)
-            return redirect('account')
-        else:
-            return HttpResponse ("Username or Password is incorrect!!!")
-
-    return render (request,'login.html')
-
 # def LoginPage(request):
-#     if request.method == 'POST':
-#         form = LoginPage(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['pass']
+#     if request.method=='POST':
+#         username=request.POST.get('username')
+#         pass1=request.POST.get('pass')
+#         user=authenticate(request,username=username,password=pass1)
+#         if user is not None:
+#             login(request,user)
+#             return redirect('account')
+#         else:
+#             return HttpResponse ("Username or Password is incorrect!!!")
 
-#             try:
-#                 user = userinfo.objects.get(username=username)
-#                 if check_password(password, user.password):
-#                     messages.success(request, 'Login successful!')
-#                     # Redirect to a success page or dashboard
-#                     return redirect('success_page')
-#                 else:
-#                     messages.error(request, 'Invalid username or password.')
-#             except User.DoesNotExist:
-#                 messages.error(request, 'Invalid username or password.')
-#     else:
-#         form = LoginPage()
+#     return render (request,'login.html')
 
-#     return render(request, 'login.html', {'form': form})         
+def LoginPage(request):
+    if request.method == 'POST':
+        uname = request.POST.get('username')
+        password = request.POST.get('pass')
+
+        try:
+            print("Hi")
+            user = details.objects.get(username=uname)
+        except details.DoesNotExist:
+            user = None
+        if user is not None and password==user.password:
+            # Authentication successful
+            # You may want to store user details in the session or use Django's login system if needed
+            print("ok")
+            return redirect('/success_page')
+        else:
+            # Return an error message or handle invalid login
+            return render(request, 'login.html', {'error_message': 'Invalid login credentials'})
+
+    return render(request, 'login.html')
+
+
+   
 
 def success_page(request):
     return render(request,'success_page.html')
@@ -130,32 +136,76 @@ def audit(request):
             ypred='Hazardous'
         if ypred==2:
             ypred='Low level'
+            
+        instance = get_object_or_404(details, pk=request.POST.get('name'))
+        instance.concern = ypred
+        instance.save()
         
         return render(request,'auditTest.html',{'result':ypred})
+        
     return render(request,'auditTest.html')
 
 
-def account_output(request):
-    if request.method=='POST':
-        print('working')
-        pass1=request.POST.get('password1')
-        pass2=request.POST.get('password2')
-        if pass1!=pass2:
-                return HttpResponse("Your password and confrom password are not Same!!")
-        else:
-            en=details(fname=request.POST.get('fname'),lname=request.POST.get('lname'),username=request.POST.get('name'),
-                age=request.POST.get('age'),gender=request.POST.get('gender'),dob=request.POST.get('dob'),
-                    address=request.POST.get('address'),city=request.POST.get('city'),state=request.POST.get('state'),phone=request.POST.get('phone'),
-                    employment=request.POST.get('employment'),education=request.POST.get('education'),concern=request.POST.get('choice'),password=request.POST.get('password1'))
-            en.save()
+# def account_output(request):
+#     if request.method=='POST':
+        
+#         pass1=request.POST.get('password1')
+#         pass2=request.POST.get('password2')
+#         if pass1!=pass2:
+#                 return HttpResponse("Your password and confrom password are not Same!!")
+#         else:
+#             en=details(fname=request.POST.get('fname'),lname=request.POST.get('lname'),username=request.POST.get('name'),
+#                 age=request.POST.get('age'),gender=request.POST.get('gender'),dob=request.POST.get('dob'),
+#                     address=request.POST.get('address'),city=request.POST.get('city'),state=request.POST.get('state'),phone=request.POST.get('phone'),
+#                     employment=request.POST.get('employment'),education=request.POST.get('education'),concern=request.POST.get('choice'),password=request.POST.get('password1'))
+#             en.save()
  
-    choice = request.POST.get('choice')
-    if choice == 'alcohol':  # Redirect to alcohol page
-        return redirect('/audit')   
-    elif choice == 'drug':  # drug page
-        return redirect('predictor') 
+#     choice = request.POST.get('choice')
+#     if choice == 'alcohol':# Redirect to alcohol page
+#         return redirect('/audit')   
+#     elif choice == 'drug':  # drug page
+#         return redirect('/predictor') 
     
-    return render(request,'account.html')
+#     return render(request,'account.html')
+
+def account_output(request):
+    if request.method == 'POST':
+        pass1 = request.POST.get('password1')
+        pass2 = request.POST.get('password2')
+        if pass1 != pass2:
+            return HttpResponse("Your password and confrom password are not Same!!")
+        else:
+            # Check if the username already exists
+            username = request.POST.get('name')
+            if details.objects.filter(username=username).exists():
+                return render(request, 'account.html', {'error_message': 'Username already exists.'})
+            
+            # Save the new entry if the username doesn't exist
+            en = details(
+                fname=request.POST.get('fname'),
+                lname=request.POST.get('lname'),
+                username=username,
+                age=request.POST.get('age'),
+                gender=request.POST.get('gender'),
+                dob=request.POST.get('dob'),
+                address=request.POST.get('address'),
+                city=request.POST.get('city'),
+                state=request.POST.get('state'),
+                phone=request.POST.get('phone'),
+                employment=request.POST.get('employment'),
+                education=request.POST.get('education'),
+                concern=request.POST.get('choice'),
+                password=request.POST.get('password1')
+            )
+            en.save()
+
+    choice = request.POST.get('choice')
+    if choice == 'alcohol':
+        return redirect('/audit')
+    elif choice == 'drug':
+        return redirect('/predictor')
+
+    return render(request, 'account.html')
     
 
     

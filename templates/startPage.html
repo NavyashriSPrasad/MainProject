@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RehabRise - Empowering Lives</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: rgb(248, 250, 229); 
+        }
+
+        header {
+            background-color:rgb(79, 111, 82);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3em;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer; /* Add cursor pointer to logo */
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: AAD9BB;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: color 0.3s; /* Smooth color transition */
+        }
+
+        nav a:hover {
+            color: #fff; /* Change text color on hover */
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            color:rgb(27, 66, 66);
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            line-height: 1.5; /* Adjust line height for better readability */
+            color: #555;
+        }
+
+        .cta-buttons {
+            margin-top: 30px;
+        }
+
+        .login-button,
+        .signup-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color:rgb(118, 69, 59); /* Green */
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            margin: 0 20px;
+            transition: background-color 0.3s;
+            cursor: pointer; /* Add cursor pointer to buttons */
+        }
+
+        .login-button:hover,
+        .signup-button:hover {
+            background-color: rgb(177, 148, 112); /* Darker Green */
+        }
+
+        footer {
+            background-color:rgb(79, 111, 82);
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href='index.html'">REHABRISE</div>
+    </header>
+    
+    <section class="hero">
+        <h1>Empowering Lives Through Recovery</h1>
+        <p>Welcome to RehabRise, where we offer support and guidance for individuals on their journey to recovery from drug and alcohol addiction.</p>
+        <p>If you're ready to take the first step towards a healthier future, get started by logging in or sign up if you are a new user.</p>
+        <div class="cta-buttons">
+            <a href="{% url 'login' %}" class="login-button">Login</a>
+            <a href="{% url 'account' %}" class="signup-button">Sign Up</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 RehabRise. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add any dynamic behavior here if needed
+    </script>
+</body>
+</html>

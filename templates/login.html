@@ -126,6 +126,9 @@ button{
     </div>
     <form method="post">
         <h3>Login Here</h3>
+        {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+       {% endif %}
         {% csrf_token %} 
         <label for="username">Username</label>
         <input type="text" placeholder="Enter Username" id="username" name="username">
@@ -135,7 +138,7 @@ button{
 
         <button type="submit">Log In</button>
     
-        <a href="{% url 'signup' %}" >Create a account</a>
+        <a href="{% url 'account' %}" >Create a account</a>
     </form>
 </body>
 </html>

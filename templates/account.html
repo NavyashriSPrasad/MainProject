@@ -1,70 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
   <title>RehabRise - Account Creation</title>
-  <!-- <link rel="stylesheet" href="styles.css"> -->
   <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-      }
-      
-      .container {
-        width: 50%;
-        margin: 50px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      
-      h1 {
-        text-align: center;
-        color: #333;
-      }
-      
-      label,
-      input,
-      select {
-        display: block;
-        margin-bottom: 10px;
-      }
-      
-      input[type="text"],
-      input[type="number"],
-      input[type="tel"],
-      input[type="date"],
-      select {
-        width: 100%;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-      }
-      
-      input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      
-      input[type="submit"]:hover {
-        background-color: #0056b3;
-      }
-      
+    /* General styles for the container */
+.container {
+  width: 50%;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for form elements */
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: rgb(27, 66, 66);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color:rgb(27, 66, 66);
+}
+
+/* Styles for labels and select options */
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Styles for radio buttons and checkboxes */
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Styles for the form itself */
+form {
+  display: block;
+  margin-bottom: 20px;
+}
   </style>
 </head>
 <body>
-    
   <div class="container">
     <h1>Create Your RehabRise Account</h1>
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+       {% endif %}
     <form action="{% url 'account' %}" method="post">
       {% csrf_token %}
       <label for="fname">First Name:</label>
@@ -77,19 +84,17 @@
       <input type="text" id="name" name="name" required>
 
       <label for="password1">Password</label>
-      <input type="password" placeholder="Password" id="password1" name="password1" required>
-
+      <input type="password"  id="password1" name="password1" required>
 
       <label for="password2">Confrom Password</label>
-      <input type="password" placeholder="Confrom Password" id="password2" name="password2" required>
-
-
+      <input type="password"  id="password2" name="password2" required>
+      
       <label for="age">Age:</label>
       <input type="number" id="age" name="age" required>
 
       <label for="gender">Gender:</label>
-      Male<input type="radio" id="gender" name="gender" value="M">
-      Female<input type="radio" id="gender" name="gender" value="F">
+      <label>Male : <label><input type="radio" id="gender" name="gender" value="M">
+      <label>Female : </label><input type="radio" id="gender" name="gender" value="F">
 
       <label for="dob">Date of Birth:</label>
       <input type="date" id="dob" name="dob" required>
@@ -132,10 +137,12 @@
        
       <label>What are you mainly concerned about?</label>
     
-        Alcohol<input type="radio" name="choice" value="alcohol"><br><br>
+        Alcohol<input type="radio" name="choice" value="alcohol">
         Drug<input type="radio" name="choice" value="drug">
 
       <input type="submit" value="Create Account">
+
+      <a href="{% url 'login' %}" >I already have an account</a>
     </form>
   </div>
 </body>
