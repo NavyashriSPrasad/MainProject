@@ -82,8 +82,16 @@
     <h4><i>Answer the below questions honestly</i></h4>
     <hr>
     {% if result %}
-        <h1>DAST Result: {{ result }}</h1>
+    <h1>DAST Result: {{ result }}</h1>
+    {% if result == 'low level' or result == 'Moderate level' %}
+    <script>
+      // Redirect to 'books' page after a short delay
+      setTimeout(function() {
+        window.location.href = "{% url 'books' %}";
+      }, 10000);  
+    </script>
     {% endif %}
+  {% endif %}
     <form action="" method="post">
         {% csrf_token %}
         <ol>

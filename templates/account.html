@@ -72,6 +72,13 @@ form {
     {% if error_message %}
         <p style="color: red;">{{ error_message }}</p>
        {% endif %}
+    {% if messages %}
+       <ul class="messages">
+         {% for message in messages %}
+           <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+       </ul>
+     {% endif %}
     <form action="{% url 'account' %}" method="post">
       {% csrf_token %}
       <label for="fname">First Name:</label>
@@ -135,10 +142,10 @@ form {
         <option value="phd">PhD</option>
       </select>
        
-      <label>What are you mainly concerned about?</label>
+      <!-- <label>What are you mainly concerned about?</label>
     
         Alcohol<input type="radio" name="choice" value="alcohol">
-        Drug<input type="radio" name="choice" value="drug">
+        Drug<input type="radio" name="choice" value="drug"> -->
 
       <input type="submit" value="Create Account">
 

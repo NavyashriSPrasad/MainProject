@@ -11,7 +11,13 @@ urlpatterns = [
     #path('user/',views.user,name='user'),
     path('audit/', views.audit, name='auditTest'),  # Define your alcohol-related view and URL
     path('account/',views.account_output,name='account'),
-    path('success_page/',views.success_page,name='success_page')
+    path('success_page/',views.success_page,name='success_page'),
+    path('pdf_page/',views.pdf_page,name='pdf_page'),
+    path('pdf_page2/',views.pdf_page2,name='pdf_page2'),
+    path('pdf_pageA/',views.pdf_pageA,name='pdf_pageA'),
+    path('books/',views.books,name='books'),
+     path('booksA/',views.booksA,name='booksA'),
+    path('read_book/<int:book_id>/', views.read_book, name='read_book')
     #path('account', views.account_output, name='account')
     
     

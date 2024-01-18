@@ -43,7 +43,10 @@ class details(models.Model):
     class Meta:
         db_table='details'
     
-    
-    
+class PDFbooks(models.Model):
+    title=models.CharField(max_length=100)
+    pdf_content = models.BinaryField()   
+    class Meta:
+        db_table='PDFbooks'
     
 

@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .book {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .book img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .book-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .read-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .read-button:hover {
+            background-color: #45a049;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>E-Library</h1>
+        <p>Discover the power of shared experiences on your recovery journey. Gain insights and support from peer
+             stories that resonate with your own challenges.<br>Dive into true stories that complement your journey and enhance your healing process.</p>
+    </header>
+
+    <div class="container">
+        <div class="book-grid">
+            <div class="book">
+                <img src="{% static 'img/ScarTissue_pic.jpg' %}" alt="Book 1">
+                <div class="book-info">
+                    <h3>Scar Tissue</h3>
+                    <p>Author: Anthony Kiedis & Larry Sloman</p>
+                    <!-- <button class="read-button" name="1">Read</button> -->
+                    <a href="{% url 'pdf_page' %}" class="read-button">Read</a>
+                </div>
+            </div>
+
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\partygirl_pic.jpg" alt="Book 2"> -->
+                <img src="{% static 'img/partygirl_pic.jpg' %}" alt="Book 2">
+                <div class="book-info">
+                    <h3>Party Girl</h3>
+                    <p>Author: Anna David</p>
+                    <!-- <button class="read-button">Read</button> -->
+                    <a href="{% url 'pdf_page2' %}" class="read-button">Read</a>
+                </div>
+            </div>
+
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\chasingthescream_pic.jpg" alt="Book 3"> -->
+                <img src="{% static 'img/chasingthescream_pic.jpg' %}" alt="Book 3">
+                <div class="book-info">
+                    <h3>Chasing The Scream: The First and Last Days of the War on Drugs</h3>
+                    <p>Author: Johann Hari</p>
+                    <button class="read-button">Read</button>
+                </div>
+            </div>
+
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\beautifulBoy_pic.jpg" alt="Book 3"> -->
+                <img src="{% static 'img/beautifulBoy_pic.jpg' %}" alt="Book 4">
+                <div class="book-info">
+                    <h3>Beautiful Boy: A Father’s Journey Through His Son’s Addiction</h3>
+                    <p>Author:  David Sheff</p>
+                    <button class="read-button">Read</button>
+                </div>
+            </div>
+
+            
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\Drinking_A love story_pic.jpg" alt="Book 4"> -->
+                <img src="{% static 'img/Drinking_A love story_pic.jpg' %}" alt="Book 5">
+                <div class="book-info">
+                    <h3>Book 5</h3>
+                    <p>Author: Author Name</p>
+                    <!-- <button class="read-button">Read</button> -->
+                    <a href="{% url 'pdf_page' %}" class="read-button">Read</a>
+                </div>
+            </div>
+
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\Drinking_A love story_pic.jpg" alt="Book 4"> -->
+                <img src="{% static 'img/ScarTissue_pic.jpg' %}" alt="Book 6">
+                <div class="book-info">
+                    <h3>Book 6</h3>
+                    <p>Author: Author Name</p>
+                    <!-- <button class="read-button">Read</button> -->
+                    <a href="{% url 'pdf_page' %}" class="read-button">Read</a>
+                </div>
+            </div>
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\Drinking_A love story_pic.jpg" alt="Book 4"> -->
+                <img src="{% static 'img/partygirl_pic.jpg' %}" alt="Book 7">
+                <div class="book-info">
+                    <h3>Book 7</h3>
+                    <p>Author: Author Name</p>
+                    <!-- <button class="read-button">Read</button> -->
+                    <a href="{% url 'pdf_page' %}" class="read-button">Read</a>
+                </div>
+            </div>
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\Drinking_A love story_pic.jpg" alt="Book 4"> -->
+                <img src="{% static 'img/beautifulBoy_pic.jpg' %}" alt="Book 8">
+                <div class="book-info">
+                    <h3>Book 8</h3>
+                    <p>Author: Author Name</p>
+                    <!-- <button class="read-button">Read</button> -->
+                    <a href="{% url 'pdf_page' %}" class="read-button">Read</a>
+                </div>
+            </div>
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\Drinking_A love story_pic.jpg" alt="Book 4"> -->
+                <img src="{% static 'img/chasingthescream_pic.jpg' %}" alt="Book 9">
+                <div class="book-info">
+                    <h3>Book 9</h3>
+                    <p>Author: Author Name</p>
+                    <!-- <button class="read-button">Read</button> -->
+                    <a href="{% url 'pdf_page' %}" class="read-button">Read</a>
+                </div>
+            </div>
+            <div class="book">
+                <!-- <img src="C:\Users\Navyashri\djangoProject\Project\RehabRise_books\Drinking_A love story_pic.jpg" alt="Book 4"> -->
+                <img src="{% static 'img/Drinking_A love story_pic.jpg' %}" alt="Book 10">
+                <div class="book-info">
+                    <h3>Book 10</h3>
+                    <p>Author: Author Name</p>
+                    <!-- <button class="read-button">Read</button> -->
+                    <a href="{% url 'pdf_page' %}" class="read-button">Read</a>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</body>
+
+</html>

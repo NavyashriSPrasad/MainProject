@@ -8,7 +8,9 @@ from django.contrib.auth.decorators import login_required
 from sklearn.preprocessing import LabelEncoder
 from .models import details
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.hashers import check_password
+from .models import PDFbooks
+from django.contrib import messages
+
 
 model=load('./savedModels/best_svm.joblib')
 model1=load('./savedModels/adaboost_classifier.joblib')
@@ -18,6 +20,20 @@ model1=load('./savedModels/adaboost_classifier.joblib')
 
 def startPage(request):
     return render(request,'startPage.html')
+
+def pdf_page(request):
+    return render(request,'pdf_page.html')
+def pdf_page2(request):
+    return render(request,'pdf_page2.html')
+def pdf_pageA(request):
+    return render(request,'pdf_pageA.html')
+
+def books(request):
+    return render(request,'books.html')
+
+def booksA(request):
+    return render(request,'booksA.html')
+
 
 def SignupPage(request):
     if request.method=='POST':
@@ -54,14 +70,15 @@ def LoginPage(request):
         password = request.POST.get('pass')
 
         try:
-            print("Hi")
+            
             user = details.objects.get(username=uname)
+            
         except details.DoesNotExist:
             user = None
         if user is not None and password==user.password:
             # Authentication successful
             # You may want to store user details in the session or use Django's login system if needed
-            print("ok")
+            request.session['username'] = uname
             return redirect('/success_page')
         else:
             # Return an error message or handle invalid login
@@ -73,6 +90,15 @@ def LoginPage(request):
    
 
 def success_page(request):
+    
+    if request.method=='POST':
+      choice = request.POST.get('choice')
+      username = request.session.get('username', None)
+      user_details = details.objects.get(username=username)
+      user_details.Test_Result = choice
+      user_details.save()
+      
+           
     return render(request,'success_page.html')
 
 def LogoutPage(request):
@@ -92,6 +118,8 @@ def user(request):
 
 #@login_required(login_url='login')
 def predictor(request):
+    result_to_display = None
+    
     if request.method=='POST':
         a1=request.POST['q1']
         a2=request.POST['q2']
@@ -103,7 +131,9 @@ def predictor(request):
         a8=request.POST['q8']
         a9=request.POST['q9']
         a10=request.POST['q10']
+        
         ypred=model.predict([[a1,a2,a3,a4,a5,a6,a7,a8,a9,a10]])
+        
         if ypred[0]=='low level':
             ypred='Low Level'
         elif ypred[0]=='Moderate level':
@@ -112,12 +142,22 @@ def predictor(request):
             ypred='Substantial Level'
         else:
             ypred='Severe Level'
-        
-        return render(request,'main.html',{'result':ypred})
-    return render(request,'main.html')
+        username = request.session.get('username', None)
+        user_details = details.objects.get(username=username)
+        user_details.Test_Result = ypred
+        user_details.save()
+    
+        result_to_display = ypred
+
+        if ypred in ['Low Level', 'Moderate Level']:
+            # Redirect to 'books' page if the condition is met
+            return redirect('books')
+
+    return render(request, 'main.html', {'result': result_to_display})
 
 # @login_required(login_url='login')
 def audit(request):
+    result_to_display = None
     if request.method=='POST':
         a1=request.POST['q1']
         a2=request.POST['q2']
@@ -136,14 +176,21 @@ def audit(request):
             ypred='Hazardous'
         if ypred==2:
             ypred='Low level'
-            
-        instance = get_object_or_404(details, pk=request.POST.get('name'))
-        instance.concern = ypred
-        instance.save()
         
-        return render(request,'auditTest.html',{'result':ypred})
+        username = request.session.get('username', None)
+        user_details = details.objects.get(username=username)
+        user_details.Test_Result = ypred
+        user_details.save()
+    
+        result_to_display = ypred
+
+        if ypred == 'Low Level':
+            # Redirect to 'booksA' page if the condition is met
+            return redirect('booksA')
         
-    return render(request,'auditTest.html')
+        #return render(request,'auditTest.html',{'result':ypred})
+        
+    return render(request,'auditTest.html',{'result':result_to_display})
 
 
 # def account_output(request):
@@ -198,16 +245,19 @@ def account_output(request):
                 password=request.POST.get('password1')
             )
             en.save()
-
-    choice = request.POST.get('choice')
-    if choice == 'alcohol':
-        return redirect('/audit')
-    elif choice == 'drug':
-        return redirect('/predictor')
-
+            messages.success(request, 'Account created successfully!')
+            return redirect('login')
+    # choice = request.POST.get('choice')
+    # if choice == 'alcohol':
+    #     return redirect('/audit')
+    # elif choice == 'drug':
+    #     return redirect('/predictor')
+           
     return render(request, 'account.html')
     
-
+def read_book(request,id):
+    book = PDFbooks.objects.get(id=id)
+    return render(request, 'pdf_page.html', {'book': book})
     
 # def audit(request):
 #     if request.method == 'POST':

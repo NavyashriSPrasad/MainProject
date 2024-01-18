@@ -55,6 +55,17 @@
 </head>
 <body>
     <h1>Audit Assessment</h1>
+    {% if result %}
+    <h1>AUDIT Result: {{ result }}</h1>
+    {% if result == 'Low Level' %}
+      <script>
+        // Redirect to 'booksA' page after a short delay
+        setTimeout(function() {
+          window.location.href = "{% url 'booksA' %}";
+        }, 10000);  
+      </script>
+    {% endif %}
+  {% endif %}
     <form action="" method="post">
         {% csrf_token %}
         <div class="question">
@@ -198,8 +209,6 @@
         </div>
         <input type="submit" value="Submit">
     </form>
-    {% if result %}
-        <h1>DAST Result: {{ result }}</h1>
-    {% endif %}
+   
 </body>
 </html>
