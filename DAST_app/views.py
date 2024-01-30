@@ -13,7 +13,7 @@ from django.contrib import messages
 
 
 model=load('./savedModels/best_svm.joblib')
-model1=load('./savedModels/adaboost_classifier.joblib')
+model1=load('./savedModels/svm_audit.joblib')
 
 # def HomePage(request):
 #     return render(request,'home.html')
@@ -33,6 +33,9 @@ def books(request):
 
 def booksA(request):
     return render(request,'booksA.html')
+
+def dashboard(request):
+    return render(request,'dashboard.html')
 
 
 def SignupPage(request):
@@ -147,13 +150,25 @@ def predictor(request):
         user_details.Test_Result = ypred
         user_details.save()
     
-        result_to_display = ypred
+        # result_to_display = ypred
+        return redirect('resultD')
+        # if ypred in ['Low Level', 'Moderate Level']:
+        #     # Redirect to 'books' page if the condition is met
+        #     return redirect('books')
 
-        if ypred in ['Low Level', 'Moderate Level']:
-            # Redirect to 'books' page if the condition is met
-            return redirect('books')
+    return render(request, 'main.html')
+    # return render(request, 'main.html', {'result': result_to_display})
 
-    return render(request, 'main.html', {'result': result_to_display})
+def resultD(request):
+    # Retrieve the result from the database
+    username = request.session.get('username', None)
+    user_details = details.objects.get(username=username)
+    result = user_details.Test_Result
+    
+    return render(request, 'resultD.html', {'result': result})
+
+
+
 
 # @login_required(login_url='login')
 def audit(request):
@@ -170,12 +185,12 @@ def audit(request):
         a9=request.POST['q9']
         a10=request.POST['q10']
         ypred=model1.predict([[a1,a2,a3,a4,a5,a6,a7,a8,a9,a10]])
-        if ypred==0:
-            ypred='Alcohol Dependent'
-        if ypred==1:
+        if ypred[0]=='Alcohol Dependence':
+            ypred='Alcohol Dependence'
+        if ypred[0]=='Hazardous':
             ypred='Hazardous'
-        if ypred==2:
-            ypred='Low level'
+        if ypred[0]=='Low Risk':
+            ypred='Low Risk'
         
         username = request.session.get('username', None)
         user_details = details.objects.get(username=username)
@@ -183,15 +198,23 @@ def audit(request):
         user_details.save()
     
         result_to_display = ypred
-
-        if ypred == 'Low Level':
-            # Redirect to 'booksA' page if the condition is met
-            return redirect('booksA')
+        return redirect('result')
+        # if ypred == 'Low Risk':
+        #     # Redirect to 'booksA' page if the condition is met
+        #     return redirect('booksA')
         
         #return render(request,'auditTest.html',{'result':ypred})
         
-    return render(request,'auditTest.html',{'result':result_to_display})
+    # return render(request,'auditTest.html',{'result':result_to_display})
+    return render(request,'auditTest.html')
 
+def result(request):
+    # Retrieve the result from the database
+    username = request.session.get('username', None)
+    user_details = details.objects.get(username=username)
+    result = user_details.Test_Result
+    
+    return render(request, 'result.html', {'result': result})
 
 # def account_output(request):
 #     if request.method=='POST':

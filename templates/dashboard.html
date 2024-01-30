@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RehabRise Therapy Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color:rgb(61, 59, 64);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        
+        .therapy-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 20px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .therapy-option {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .therapy-option:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rehab Routes</h1>
+        <div class="therapy-options">
+            
+            <div class="therapy-option">
+                <h2>Knowledge Sessions</h2>
+                <a href="{% url 'books' %}" style="text-decoration: none; color: inherit;"><p>Gain insight and knowledge about addiction, recovery strategies, and relapse prevention to support your journey to sobriety.</p></a>
+            </div>
+            
+            <div class="therapy-option">
+                <h2>Mindfulness-Based Relapse Prevention (MBRP)</h2>
+                <p> Cultivate mindfulness skills to prevent relapse by fostering awareness and acceptance of cravings and triggers.</p>
+            </div>
+            <div class="therapy-option">
+                <h2>Group Therapy</h2>
+                <p>Connect with others facing similar challenges in a supportive group setting.</p>
+            </div>
+            <div class="therapy-option">
+                <h2>Cognitive Behavioral Therapy (CBT)</h2>
+                <p>Explore techniques to change negative patterns of thinking and behavior.</p>
+            </div>
+            <div class="therapy-option">
+                <h2>Art Therapy</h2>
+                <p>Express yourself through creative activities to explore emotions and experiences.</p>
+            </div>
+            <div class="therapy-option">
+                <h2>Music Therapy</h2>
+                <p>Use music to promote relaxation, self-expression, and emotional healing.</p>
+            </div>
+            <!-- Add more therapy options as needed -->
+        </div>
+    </div>
+</body>
+</html>

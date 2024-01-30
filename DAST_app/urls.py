@@ -17,6 +17,9 @@ urlpatterns = [
     path('pdf_pageA/',views.pdf_pageA,name='pdf_pageA'),
     path('books/',views.books,name='books'),
      path('booksA/',views.booksA,name='booksA'),
+     path('result/',views.result,name='result'),
+      path('resultD/',views.resultD,name='resultD'),
+      path('dashboard/',views.dashboard,name='dashboard'),
     path('read_book/<int:book_id>/', views.read_book, name='read_book')
     #path('account', views.account_output, name='account')
     
