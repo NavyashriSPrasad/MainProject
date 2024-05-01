@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>RehabRise - Account Creation</title>
+  <style>
+    /* General styles for the container */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    label,
+    input,
+    select {
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    input[type="password"],
+    input[type="radio"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    input[type="radio"] {
+      margin-top: 5px;
+    }
+
+    input[type="submit"] {
+      width: 30%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: rgb(40, 139, 220);
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto; /* Center the button */
+    }
+    
+    input[type="submit"]:hover {
+      background-color:rgb(89, 107, 207);
+    }
+
+    .therapist-fields {
+      display: none;
+    }
+
+    .registration-link {
+      font-size: .9em;
+  }
+
+  .registration-link a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+  }
+
+  .registration-link a:hover {
+      text-decoration: underline;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Create Your RehabRise Account</h1>
+    <div class="registration-link"> 
+      <p>Not a doctor? <a href="{% url 'Paccount' %}">Register here</a></p> 
+  </div> 
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+       {% endif %}
+    {% if messages %}
+       <ul class="messages">
+         {% for message in messages %}
+           <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+         {% endfor %}
+       </ul>
+     {% endif %}
+     <form action="{% url 'Taccount' %}" method="post">
+      {% csrf_token %}
+      
+     
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname2" name="fname" value="" placeholder="First Name" >
+
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname2" name="lname" value="" placeholder="Last Name" >
+
+        <label for="uname">Username:</label>
+        <input type="text" id="uname2" name="uname" value="" placeholder="Username" >
+
+        <label for="password1">Password</label>
+        <input type="password" placeholder="Password" id="passwordt1" name="password1">
+
+        <label for="password2">Confirm Password</label>
+        <input type="password" placeholder="Confirm Password" id="passwordt2" name="password2">
+
+        <label for="age">Age:</label>
+        <input type="number" id="age2" name="age"  placeholder="Age" >
+
+        <label for="gender">Gender:</label>
+        Male<input type="radio" id="gender2" name="gender" value="M">
+        Female<input type="radio" id="gender2" name="gender" value="F">
+        Other<input type="radio" id="gender" name="gender" value="O">
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob2" name="dob" value="" placeholder="Date of Birth" >
+  
+        <label for="address">Address:</label>
+        <input type="text" id="address2" name="address" value="" placeholder="Address" >
+  
+        <label for="city">City:</label>
+        <input type="text" id="city2" name="city" value="" placeholder="City" >
+  
+        <label for="state">State:</label>
+        <input type="text" id="state2" name="state" value="" placeholder="State" >
+  
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone2" name="phone" >
+        
+        <label for="qualification">Qualification:</label>
+        <input type="text" id="qual" name="qual" value="" placeholder="Qualification" >
+
+        <label for="experience">Experience:</label>
+        <input type="number" id="exp" name="exp" value="" placeholder="Experience" >
+      </div>
+
+     
+      <input type="submit" value="Create Account">
+
+      <a href="{% url 'login' %}" style="display: block; text-align: center;color: #ec1313;text-decoration: none;font-weight: 500;">I already have an account</a>
+    </form>
+  </div>
+
+</body>
+</html>

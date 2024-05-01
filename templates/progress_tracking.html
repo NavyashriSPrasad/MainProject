@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .therapy-entry {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .therapy-entry h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .therapy-entry p {
+            color: #666;
+        }
+
+        .journal-form {
+            margin-top: 20px;
+        }
+
+        .journal-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+
+        .journal-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .journal-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Progress Tracking</h1>
+        {% for entry in progress_entries %}
+        <div class="therapy-entry">
+            <h2>{{ entry.therapy }}</h2>
+            <p>{{ entry.description }}</p>
+            <p>Date: {{ entry.date }}</p>
+        </div>
+        {% endfor %}
+        
+        <div class="journal-form">
+            <h2>How do you feel today?</h2>
+            <form method="POST" action="{% url 'save_journal_entry' %}">
+                {% csrf_token %}
+                <textarea name="journal_entry" placeholder="Write your thoughts here..." required></textarea>
+                <button type="submit"><i class="fas fa-save"></i> Save Entry</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

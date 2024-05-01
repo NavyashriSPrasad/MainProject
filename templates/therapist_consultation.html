@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist's Consultations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .consultation {
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .consultation img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .consultation p {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .no-consultations {
+            text-align: center;
+            color: #999;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .menu-icon {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: auto;
+            
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 120px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 40px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a class="navbar-brand" href="#">RehabRise</a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="dropdown">
+            <div class="dropdown-content">
+                <a href="#">Profile</a>
+                <a href="{% url 'startPage' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Therapist's Consultations</h1>
+
+        {% if consultations %}
+            {% for consultation in consultations %}
+                <div class="consultation">
+                    <img src="{{ consultation.artwork.url }}" alt="Artwork">
+                    <p><strong>Patient:</strong> {{ consultation.patient_username }}</p>
+                    <p><strong>Comments:</strong> {{ consultation.comments }}</p>
+                    <form action="{% url 'save_reply' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="consultation_id" value="{{ consultation.id }}">
+                        <label for="reply">Your Reply:</label><br>
+                        <textarea name="reply" rows="4" cols="50"></textarea><br>
+                        <button type="submit">Submit Reply</button>
+                    </form>
+                    <hr>
+                    <h3>Therapist's Reply:</h3>
+                    {% if consultation.therapist_reply %}
+                        <p>{{ consultation.therapist_reply }}</p>
+                    {% else %}
+                        <p>No reply yet.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-consultations">No consultations found.</p>
+        {% endif %}
+    </div>
+     <!-- JavaScript to Toggle Dropdown Menu -->
+     <script>
+        function toggleMenu() {
+            var dropdownContent = document.querySelector('.dropdown-content');
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

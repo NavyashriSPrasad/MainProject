@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Progress Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* Custom styles for the page */
+        body {
+            background-color: #f3f3f3;
+            font-family: 'Helvetica', Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #555;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 22px;
+            }
+
+            .card h2 {
+                font-size: 18px;
+            }
+        }
+
+         /* Navbar styles */
+         .navbar {
+            background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px; /* Adjusted padding */
+    margin: 0; /* Remove any margin */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .menu-icon {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 120px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            top: 40px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+            </style>
+</head>
+<body>
+   <!-- Add the navbar here -->
+   <div class="navbar">
+    <a class="navbar-brand" href="#">RehabRise</a>
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <div class="dropdown">
+        <div class="dropdown-content">
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'startPage' %}">Logout</a>
+            <a href="{% url 'progress_tracker' %}">Track your progress</a>
+        </div>
+    </div>
+</div>
+
+    <div class="container mt-4">
+        <h1>Progress Tracker for {{ patient.fname }} {{ patient.lname }}</h1>
+
+        <!-- Patient concern and test result -->
+        <div class="card bg-light p-3">
+            <div class="card-body">
+                <h2 class="card-title">Patient Concern: {{ patient.concern | title }}</h2>
+
+                <!-- Test-taking button -->
+                {% if patient.concern == 'drug' %}
+                    <a href="{% url 'Main' %}" class="btn btn-primary mt-3">Take the Test</a>
+                {% elif patient.concern == 'alcohol' %}
+                    <a href="{% url 'auditTest' %}" class="btn btn-primary mt-3">Take the Test</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Progress data -->
+        {% if no_progress_data %}
+            <div class="alert alert-warning" role="alert">
+                No progress data available. Consider taking the test again to track your progress.
+            </div>
+        {% else %}
+            <div class="card bg-light p-3">
+                <div class="card-body">
+                    <h2 class="card-title">Progress in {{ patient.concern | title }} addiction</h2>
+                    <h2 class="card-subtitle mb-3">Previous Test Result:
+                        {% if previous_progress %}
+                            {{ previous_progress.result }}
+                        {% else %}
+                            {{patient.Test_Result}}
+                        {% endif %}
+                    </h2>
+                    <p><strong>Current Level:</strong> {{ current_progress.result }}</p>
+
+                    <!-- Compare addiction levels and display messages -->
+                    {% if patient.concern == 'drug' %}
+                        {% if current_progress.result < previous_progress.result or patient.Test_Result < current_progress.result %}
+                            <div class="alert alert-success">
+                                Great job! You've shown improvement by moving from {{ previous_progress.result }} to {{ current_progress.result }}.
+                            </div>
+                        {% elif current_progress.result > previous_progress.result or current_progress.result > patient.Test_Result %}
+                            <div class="alert alert-danger">
+                                Your progress has worsened. Consider reaching out to your therapist for support.
+                            </div>
+                        {% else %}
+                            <div class="alert alert-secondary">
+                                Your progress is the same as before. Keep working on improving your results.
+                            </div>
+                        {% endif %}
+                    {% elif patient.concern == 'alcohol' %}
+                        {% if current_progress.result < previous_progress.result %}
+                            <div class="alert alert-success">
+                                Great job! You've shown improvement by moving from {{ previous_progress.result }} to {{ current_progress.result }}.
+                            </div>
+                        {% elif current_progress.result > previous_progress.result %}
+                            <div class="alert alert-danger">
+                                Your progress has worsened. Consider reaching out to your therapist for support.
+                            </div>
+                        {% else %}
+                            <div class="alert alert-secondary">
+                                Your progress is the same as before. Keep working on improving your results.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Therapy access history -->
+        <div class="card bg-light p-3">
+            <div class="card-body">
+                <h2 class="card-title">Therapy Access History</h2>
+                <ul class="list-group list-group-flush">
+                    {% for access in therapy_access_history %}
+                        <li class="list-group-item">
+                            <strong>{{ access.therapy_name }}</strong> accessed on {{ access.access_time | date:"F j, Y g:i A" }}
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No therapy access history available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            var dropdownContent = document.querySelector('.dropdown-content');
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'block';
+            }
+        }
+
+    </script>
+</body>
+</html>

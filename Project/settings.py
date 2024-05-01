@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'channels',
     "DAST_app"
 ]
 
@@ -89,6 +91,11 @@ DATABASES = {
 }
 
 STATIC_URL = '/static/'
+
+# Add these lines to configure media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT ='C:/Users/Navyashri/djangoProject/Project/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'DAST_app/static'),
 ]
@@ -133,3 +140,4 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+

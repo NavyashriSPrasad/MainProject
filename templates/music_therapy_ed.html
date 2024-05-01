@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Therapy Education</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #4f6f52;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            overflow: hidden; /* Hide content that overflows the container */
+        }
+
+        /* Separate sections for articles and videos */
+        .section {
+            display: inline-block;
+            white-space: nowrap; /* Prevent wrapping of inline elements */
+            animation: scrollAnimation 50s linear infinite; /* Adjust animation duration as needed */
+        }
+
+        @keyframes scrollAnimation {
+            from { transform: translateX(0); } /* Start from initial position */
+            to { transform: translateX(-100%); } /* Move content to the left */
+        }
+        
+        article,
+        .video {
+            min-width: 300px; /* Adjust the minimum width of articles and videos */
+            display: inline-block;
+            background-color: #fff;
+            border-radius: 5px;
+            margin-right: 20px; /* Add some space between elements */
+            padding: 20px;
+        }
+        
+        article h2 {
+            color: #4f6f52;
+        }
+        
+        article p {
+            color: #333;
+        }
+        
+        .video {
+            margin-bottom: 20px;
+        }
+        
+        .video iframe {
+            width: 100%;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Music Therapy Education</h1>
+    </header>
+    
+    <div class="content">
+        <div class="section article-section">
+            <article>
+                <h2>Article: Benefits of Music Therapy in Substance Abuse Treatment</h2>
+                <p>Music therapy can create self-confidence and an ability to communicate their feelings–especially for those who find it difficult to express themselves in words...</p>
+                <a href="https://ranchatdovetree.com/blog/benefits-music-therapy-treatment/" target="_blank">Read More</a>
+            </article>
+            <article>
+                <h2>Article: Music Therapy in Addiction Recovery</h2>
+                <p>When words fail, music speaks..</p>
+                <a href="https://www.recoverlution.com/knowledge/music-therapy-addiction-treatment" target="_blank">Read More</a>
+            </article>
+            <article>
+                <h2>Article: How Does Music Therapy Help with Addiction Treatment?</h2>
+                <p> The best part is that patients don’t need to be musically inclined to enjoy the benefits. </p>
+                <a href="https://addictionrehabtoronto.ca/how-does-music-therapy-help-with-addiction-treatment-2/#:~:text=Helps%20patients%20recognize%20and%20process%20their%20emotions&text=Although%20they%20know%20that%20these,they%20listen%20and%20discuss%20music." target="_blank">Read More</a>
+            </article>
+            <article>
+                <h2>Article:Music Therapy for Addiction: Emotional Balance, Recovery</h2>
+                <p> Helps develop healthier ways to cope with emotional distress. </p>
+                <a href="https://grovetreatment.com/addiction/treatment/therapy/experiential/music/" target="_blank">Read More</a>
+            </article>
+        </div>
+        
+        <div class="section video-section">
+            <div class="video">
+                <h2>Video: Music Assisted Relaxation</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/xY-_SfZpBko?si=KY4zrvEICjH9R_EA" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video">
+                <h2>Video: Music Assisted Relaxation</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/wJ3NqixVeN8?si=-ayecJu7l-01rOfu" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video">
+                <h2>Video: Music Assisted Relaxation</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/5gk5i5M6kz0?si=c3uu1x8RFe02lO_N" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript is not required for this scrolling effect -->
+</body>
+</html>

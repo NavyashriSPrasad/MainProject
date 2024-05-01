@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Art Therapy | RehabRise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .therapy-info {
+            margin-bottom: 40px;
+        }
+
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 20px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .doctor-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .doctor-name {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .consult-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .consult-button:hover {
+            background-color: #0056b3;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .menu-icon {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: auto;
+            
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 120px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 40px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a class="navbar-brand" href="#">RehabRise</a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="dropdown">
+            <div class="dropdown-content">
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'startPage' %}">Logout</a>
+                <a href="{% url 'progress_tracker' %}">Track your progress</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome to Art Therapy Section -->
+    <div class="container">
+        <h1>Welcome to Art Therapy</h1>
+        <div class="therapy-info">
+       </div>
+        <p> Unlock Your Creativity, Embrace Healing: Dive into the vibrant world of art therapy, where every stroke, color,
+            and shape becomes a canvas for your journey to renewal. Let the power of artistic expression guide you through the waves of recovery,
+             illuminating paths of self-discovery and resilience. In this sanctuary of creativity, you're not defined by your past,
+              but empowered by the boundless possibilities of your future. Embrace the brush, embrace the journey – 
+           for within each masterpiece lies the strength to overcome, the courage to thrive, and the beauty of your own transformation.</p>
+    </div>
+
+    <!-- Doctors Grid Section -->
+    <div class="container">
+        <h2>Meet Our Recovery Guides</h2>
+        <div class="doctors-grid">
+            {% for therapist in therapists %}
+        <div class="doctor-card">
+            <h3 class="doctor-name">Dr.{{ therapist.fname }} {{ therapist.lname }} ({{therapist.username}}) </h3>
+            <p>{{ therapist.qualification }}</p>
+            <p style="color: #666; font-size: small;">{{ therapist.experience}} Years Overall Experience</p>
+            <!-- artTherapy.html -->
+            <a href="{% url 'artConsultation' %}" class="consult-button">Consult</a>
+        </div>
+        {% endfor %}
+           
+        </div>
+    </div>
+     <!-- JavaScript to Toggle Dropdown Menu -->
+     <script>
+        function toggleMenu() {
+            var dropdownContent = document.querySelector('.dropdown-content');
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

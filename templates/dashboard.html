@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,14 +74,223 @@
             </div>
             <div class="therapy-option">
                 <h2>Art Therapy</h2>
-                <p>Express yourself through creative activities to explore emotions and experiences.</p>
+                <a href="{% url 'artTherapy' %}" style="text-decoration: none; color: inherit;"><p>Express yourself through creative activities to explore emotions and experiences.</p></a>
             </div>
             <div class="therapy-option">
                 <h2>Music Therapy</h2>
                 <p>Use music to promote relaxation, self-expression, and emotional healing.</p>
             </div>
-            <!-- Add more therapy options as needed -->
+          
         </div>
     </div>
+</body>
+</html>
+ -->
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RehabRise Therapy Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color:rgb(61, 59, 64);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        
+        .therapy-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 20px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .therapy-option {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .therapy-option:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .menu-icon {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: auto;
+            
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 120px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 40px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a class="navbar-brand" href="#">RehabRise</a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="dropdown">
+            <div class="dropdown-content">
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'startPage' %}">Logout</a>
+                <a href="{% url 'progress_tracker' %}">Track your progress</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+        <h1>Rehab Routes</h1>
+        <div class="therapy-options">
+            <!-- <div class="therapy-option" data-therapy="Knowledge Sessions">
+                <h2>Knowledge Sessions</h2>
+                <a href="{% url 'books' %}" style="text-decoration: none; color: inherit;"><p>Gain insight and knowledge about addiction, recovery strategies, and relapse prevention to support your journey to sobriety.</p></a>
+            </div> -->
+            <div class="therapy-option" data-therapy="Knowledge Sessions">
+                <h2>Knowledge Sessions</h2>
+                {% if patient.concern == 'drug' %}
+                    <a href="{% url 'books' %}" style="text-decoration: none; color: inherit;">
+                {% elif patient.concern == 'alcohol' %}
+                    <a href="{% url 'booksA' %}" style="text-decoration: none; color: inherit;">
+                {% endif %}
+                <p>Gain insight and knowledge about addiction, recovery strategies, and relapse prevention to support your journey to sobriety.</p>
+                </a>
+            </div>
+            <div class="therapy-option" data-therapy="MBRP">
+                <h2>Mindfulness-Based Relapse Prevention (MBRP)</h2>
+                <p> Cultivate mindfulness skills to prevent relapse by fostering awareness and acceptance of cravings and triggers.</p>
+            </div>
+            <div class="therapy-option" data-therapy="yoga therapy">
+                <h2>Yoga Therapy</h2>
+                <a href="{% url 'yoga_therapy' %}" style="text-decoration: none; color: inherit;"><p>Discover inner balance and heal with yoga therapy, your holistic path to recovery.</p></a>
+            </div>
+            <div class="therapy-option" data-therapy="affirmation">
+                <h2>Affirmation Therapy</h2>
+                <a href="{% url 'affirmation' %}" style="text-decoration: none; color: inherit;"><p>Unlock your potential with positive affirmations for a brighter, stronger you.</p></a>
+            </div>
+            <div class="therapy-option" data-therapy="art therapy">
+                <h2>Art Therapy</h2>
+                <a href="{% url 'artTherapy' %}" style="text-decoration: none; color: inherit;"><p>Express yourself through creative activities to explore emotions and experiences.</p></a>
+            </div>
+            <div class="therapy-option" data-therapy="music therapy">
+                <h2>Music Therapy</h2>
+                <a href="{% url 'music_therapy' %}" style="text-decoration: none; color: inherit;"><p>Use music to promote relaxation, self-expression, and emotional healing.</p></a>
+            </div>
+          
+        </div>
+    </div>
+
+    <!-- JavaScript to Toggle Dropdown Menu -->
+    <script>
+        function toggleMenu() {
+            var dropdownContent = document.querySelector('.dropdown-content');
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            var therapyOptions = document.querySelectorAll('.therapy-option');
+        
+            therapyOptions.forEach(function(option) {
+                option.addEventListener('click', function() {
+                    var therapyName = option.getAttribute('data-therapy');
+        
+                    // Send the therapy name to the access_therapy endpoint
+                    fetch(`/access_therapy/${encodeURIComponent(therapyName)}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                    }).then(function(response) {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            console.error('Failed to access therapy: response not OK');
+                            // Handle errors by redirecting to an error page
+                            window.location.href = '/error';
+                            throw new Error('Response not OK');
+                        }
+                    }).then(function(data) {
+                        console.log('Redirect URL:', data.redirect_url); // Add logging
+                        // Redirect to the therapy URL
+                        window.location.href = data.redirect_url;
+                    }).catch(function(error) {
+                        console.error('Error accessing therapy:', error);
+                        // Handle errors by redirecting to an error page
+                        window.location.href = '/error';
+                    });
+                });
+            });
+        });
+        
+                  </script>
 </body>
 </html>
