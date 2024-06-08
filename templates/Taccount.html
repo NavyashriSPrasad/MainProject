@@ -108,48 +108,48 @@
       
      
         <label for="fname">First Name:</label>
-        <input type="text" id="fname2" name="fname" value="" placeholder="First Name" >
+        <input type="text" id="fname2" name="fname" value="" placeholder="First Name" required pattern="[A-Za-z]+" >
 
         <label for="lname">Last Name:</label>
-        <input type="text" id="lname2" name="lname" value="" placeholder="Last Name" >
+        <input type="text" id="lname2" name="lname" value="" placeholder="Last Name" required pattern="[A-Za-z]+">
 
         <label for="uname">Username:</label>
-        <input type="text" id="uname2" name="uname" value="" placeholder="Username" >
+        <input type="text" id="uname2" name="uname" value="" placeholder="Username" required pattern="[A-Za-z]+" minlength="3" maxlength="15">
 
         <label for="password1">Password</label>
-        <input type="password" placeholder="Password" id="passwordt1" name="password1">
+        <input type="password" placeholder="Password" id="passwordt1" name="password1" required minlength="8" maxlength="12">
 
         <label for="password2">Confirm Password</label>
-        <input type="password" placeholder="Confirm Password" id="passwordt2" name="password2">
+        <input type="password" placeholder="Confirm Password" id="passwordt2" name="password2" required>
 
         <label for="age">Age:</label>
-        <input type="number" id="age2" name="age"  placeholder="Age" >
+        <input type="number" id="age2" name="age"  placeholder="Age" required min="18" >
 
         <label for="gender">Gender:</label>
-        Male<input type="radio" id="gender2" name="gender" value="M">
+        Male<input type="radio" id="gender2" name="gender" value="M" required>
         Female<input type="radio" id="gender2" name="gender" value="F">
         Other<input type="radio" id="gender" name="gender" value="O">
 
         <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob2" name="dob" value="" placeholder="Date of Birth" >
+        <input type="date" id="dob2" name="dob" value="" placeholder="Date of Birth" required>
   
         <label for="address">Address:</label>
-        <input type="text" id="address2" name="address" value="" placeholder="Address" >
+        <input type="text" id="address2" name="address" value="" placeholder="Address" required>
   
         <label for="city">City:</label>
-        <input type="text" id="city2" name="city" value="" placeholder="City" >
+        <input type="text" id="city2" name="city" value="" placeholder="City" required>
   
         <label for="state">State:</label>
-        <input type="text" id="state2" name="state" value="" placeholder="State" >
+        <input type="text" id="state2" name="state" value="" placeholder="State" required>
   
         <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone2" name="phone" >
-        
+        <input type="tel" id="phone2" name="phone" pattern="^\d{10}$" required>
+    
         <label for="qualification">Qualification:</label>
-        <input type="text" id="qual" name="qual" value="" placeholder="Qualification" >
+        <input type="text" id="qual" name="qual" value="" placeholder="Qualification" required>
 
         <label for="experience">Experience:</label>
-        <input type="number" id="exp" name="exp" value="" placeholder="Experience" >
+        <input type="number" id="exp" name="exp" value="" placeholder="Experience" required min="0">
       </div>
 
      

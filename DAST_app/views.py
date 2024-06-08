@@ -357,7 +357,7 @@ def paccount_output(request):
             pass1 = request.POST.get('password1')
             pass2 = request.POST.get('password2')
             if pass1 != pass2:
-                return HttpResponse("Your password and confirm password are not the same!!")
+                return render(request, 'Paccount.html', {'error_message': 'Your password and confirm password are not the same!!'})
             else:
                 username = request.POST.get('uname')
                 if Patient.objects.filter(username=username).exists():
